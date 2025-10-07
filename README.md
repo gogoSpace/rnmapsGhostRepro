@@ -51,7 +51,6 @@ After several zoom cycles, some clusters remain visible even when their items no
 ## 🪲 Observed behavior
 
 - Some clusters remain visible after zooming/panning cycles even though their items are gone.
-- Affected clusters stop responding to touch events.
 - Issue occurs regardless of `radius`, `extent`, or `tracksViewChanges` settings.
 - Behavior is random but reproducible after several automated zoom cycles.
 
