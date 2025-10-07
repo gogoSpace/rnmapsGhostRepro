@@ -1,97 +1,60 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Excessive Zooming Cluster Stress Test
 
-# Getting Started
+This React Native app is a minimal reproducible demo built to investigate **ghost markers and clustering artifacts** in [react-native-map-clustering](https://github.com/tomchentw/react-native-map-clustering).
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 🎯 Purpose
 
-## Step 1: Start Metro
+To stress-test how map clusters recalculate during extreme zoom in/out cycles combined with random panning.  
+It helps reproduce and analyze the issue where **markers or clusters persist ("ghosts")** after camera changes.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🧩 Tech Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- [react-native](https://reactnative.dev/)
+- [react-native-maps](https://github.com/react-native-maps/react-native-maps)
+- [react-native-map-clustering](https://github.com/tomchentw/react-native-map-clustering)
 
-```sh
-# Using npm
-npm start
+## 🧪 What It Does
 
-# OR using Yarn
-yarn start
+- Generates 1000 random markers centered around **Razová, Czech Republic** (`49.931305 N, 17.531996 E`)
+- Runs an automated **Excessive Zooming Test** that:
+  - repeatedly zooms from `zoom = 15 → 5` and back  
+  - adds small random pans at each step  
+  - returns to the original center
+- Uses `clusterColor`, `clusterTextColor`, and `pinColor` for clear visual feedback
+- Marker and cluster colors change **only when regenerating data**, not during the test itself
+
+## 🕹️ Controls
+
+| Button | Action |
+|--------|---------|
+| **Run Excessive Zooming Test** | performs automated zoom / pan cycles |
+| **Regenerate 1k markers** | creates new random dataset + color scheme |
+| **Toggle Cluster** | enables / disables clustering |
+
+## 🧭 Usage
+
+```bash
+npm install
+npx react-native run-android
+# or
+npx react-native run-ios
 ```
 
-## Step 2: Build and run your app
+Then simply tap buttons in the UI.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## ⚠️ Notes
 
-### Android
+- The test intentionally pushes clustering updates to their limits.
+- On some Android 9 emulators, reloading the app (`⌘ R` or `RR`) may crash due to Google Maps SDK’s `NullPointerException` during teardown — unrelated to app logic but reproducible here.
+- Best tested on Android ≥ API 30 or iOS ≥ 15.
 
-```sh
-# Using npm
-npm run android
+## 🪲 Related issue
 
-# OR using Yarn
-yarn android
-```
+This repository was created to reproduce and analyze:
+> **Ghost markers / stale clusters after zoom or camera animation**
 
-### iOS
+Feel free to fork it, run your own scenarios, and report findings in the related issue thread.
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+---
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+MIT License © 2025 Jiří Bílek

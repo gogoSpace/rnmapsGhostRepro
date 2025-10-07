@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="manifest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="application">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="meta-data" />
+                            <xs:element name="activity">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="intent-filter">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="action" />
+                                                    <xs:element name="category" />
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="application" />
+</xs:schema>
