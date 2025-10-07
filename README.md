@@ -33,6 +33,24 @@ It helps reproduce and analyze the issue where **markers or clusters persist ("g
 
 ## 🧭 Usage
 
+> **Google Maps API key (Android)**
+>
+> 1. Create a key in Google Cloud Console and enable “Maps SDK for Android”.
+> 2. Restrict it to **Android apps** with:
+>    - **Package name:** `com.rnmapsghostrepro`
+>    - **SHA-1:** from `./gradlew signingReport` (variant **debug**)
+> 3. Paste the key directly into the manifest:
+
+```xml
+<!-- android/app/src/main/AndroidManifest.xml -->
+<!-- Google Maps API key -->
+<meta-data
+  android:name="com.google.android.geo.API_KEY"
+  android:value="YOUR_API_KEY_HERE" />
+```
+
+### Run
+
 ```bash
 npm install
 npx react-native run-android
